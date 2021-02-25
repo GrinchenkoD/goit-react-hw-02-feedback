@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Section from "./section/Section";
+import Statistics from "./statistics/Statistics";
+import FeedbackOptions from "./feedbackOptions/FeedbackOptions";
+
+import styles from "./App.module.css";
 
 class App extends Component {
 
@@ -31,25 +34,17 @@ class App extends Component {
 
     render() {
         const { good, neutral, bad } = this.state;
-
+        const options = Object.keys(this.state)
         return (
-          <>
-            <Section title="Please leave feedback">               
-                <button name="good" type="button" onClick={this.leaveFeedback}>Good</button>
-                <button name="neutral" type="button" onClick={this.leaveFeedback}>Neutral</button>
-                <button name="bad" type="button" onClick={this.leaveFeedback}>Bad</button>
+        <div className={styles.container}>
+            <Section title="Please leave feedback"> 
+                <FeedbackOptions options={options} onLeaveFeedback={this.leaveFeedback}/>        
             </Section>
-
-             <Section title="Statistics">
-                <ul>
-                    <li><p>Good : {good}</p></li>
-                    <li><p>Neuntral : {neutral}</p></li>
-                    <li><p>Bad : {bad}</p></li>
-                    <li><p>Total : {this.countTotalFeedback()}</p></li>
-                    <li><p>Positive feedback : {this.countPositiveFeedbackPercentage().toFixed(0)}%</p></li>
-                </ul>
+            <Section title="Statistics">
+                <Statistics good={good} neutral={neutral} bad={bad} total={this.countTotalFeedback()}
+                    positivePercentage={this.countPositiveFeedbackPercentage().toFixed(0)} />
             </Section>
-            </>
+        </div>
         )
     }
 }
