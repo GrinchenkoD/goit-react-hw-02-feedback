@@ -5,7 +5,11 @@
     border: none;
     outline: none;
     border-radius: 15px;
+    cursor: pointer;
 } 
 .button:not(:last-child){
     margin-right: 20px;
+}
+.button:hover{
+    background-color: lightsalmon;
 }
